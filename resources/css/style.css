@@ -1,0 +1,49 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.blob-shape {
+  clip-path: path("M402.5,307Q332,374,263,386.5Q194,399,128.5,353.5Q63,308,65.5,226.5Q68,145,136.5,95Q205,45,290,61Q375,77,426.5,138.5Q478,200,402.5,307Z");
+}
+
+/* Pulse Ring Effect (Lingkaran efek di belakang tombol play) */
+.pulse-ring {
+  position: absolute;
+  width: 96px; /* w-24 */
+  height: 96px; /* h-24 */
+  border-radius: 9999px;
+  z-index: 10;
+}
+
+.pulse-ring::before,
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background-color: rgba(15, 12, 41, 1); /* Warna biru tua solid */
+  animation: pulse-ring-animation 2.5s ease-out infinite;
+  z-index: -1;
+}
+
+@keyframes pulse-ring-animation {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Hover Effect untuk Tombol Play (bisa juga dipakai di tombol lainnya) */
+.play-button:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
