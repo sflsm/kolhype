@@ -1,25 +1,54 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lupa Password</title>
+  @vite('resources/css/app.css')
+</head>
+<body class="bg-[#1e2a3a] min-h-screen flex items-center justify-center">
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+  <div class="bg-gradient-to-b from-[#0d1a2b] to-[#1b3149] rounded-2xl p-8 w-full max-w-md shadow-lg text-white text-center">
 
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
+    <h2 class="text-2xl font-bold">LUPA PASSWORD</h2>
+    <p class="text-sm text-gray-300 mb-6">
+      Masukkan email untuk reset password
+    </p>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    @if (session('status'))
+      <div class="text-green-400 text-sm mb-4">
+        {{ session('status') }}
+      </div>
+    @endif
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
+    <form method="POST" action="{{ route('password.email') }}" class="space-y-4 text-left">
+      @csrf
+
+      <div class="relative">
+        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+          <i class="fas fa-envelope"></i>
+        </span>
+        <input type="email" name="email" placeholder="Email"
+          class="pl-10 w-full py-2 rounded-full bg-[#1c2e47] text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-yellow-400"
+          value="{{ old('email') }}" required autofocus />
+        
+        @error('email')
+          <p class="text-red-400 text-sm mt-1 ml-2">{{ $message }}</p>
+        @enderror
+      </div>
+
+      <button type="submit"
+        class="w-full bg-yellow-400 text-black font-semibold py-2 rounded-full hover:bg-yellow-500 transition">
+        Kirim Link Reset Password
+      </button>
     </form>
-</x-guest-layout>
+
+    <div class="mt-4 text-sm">
+      <a href="{{ route('login') }}" class="text-yellow-400 hover:underline">← Kembali ke Login</a>
+    </div>
+  </div>
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</body>
+</html>
